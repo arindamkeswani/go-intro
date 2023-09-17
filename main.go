@@ -17,8 +17,8 @@ func main() {
     const conferenceTicketCount = 50;
     var remainingTickets = 50;
 
-	fmt.Println("Welcome to", conferenceName, "booking application");
+	fmt.Printf("Welcome to %s booking application\n", conferenceName);
     fmt.Println("You can book your tickets here!");
-    fmt.Println("We have",remainingTickets,"out of",conferenceTicketCount,"tickets remaining"); 
+    fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount); 
 
 }
