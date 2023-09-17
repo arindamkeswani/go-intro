@@ -13,7 +13,12 @@ import (
 
 // 3. This function is the entrypoint of the project
 func main() {
+    var conferenceName = "Go Conference";
+    const conferenceTicketCount = 50;
+    var remainingTickets = 50;
 
-	fmt.Println("Welcome to our conference booking application");
+	fmt.Println("Welcome to", conferenceName, "booking application");
     fmt.Println("You can book your tickets here!");
+    fmt.Println("We have",remainingTickets,"out of",conferenceTicketCount,"tickets remaining"); 
+
 }
