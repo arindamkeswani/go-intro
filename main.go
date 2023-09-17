@@ -13,12 +13,22 @@ import (
 
 // 3. This function is the entrypoint of the project
 func main() {
-    var conferenceName = "Go Conference";
+    conferenceName := "Go Conference"; // the := syntactical sugar applies only to var, not const, and you cannot use it while defining a type
     const conferenceTicketCount = 50;
-    var remainingTickets = 50;
+    var remainingTickets uint = 50;
 
 	fmt.Printf("Welcome to %s booking application\n", conferenceName);
     fmt.Println("You can book your tickets here!");
     fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount); 
 
+    // Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
+    var userName string;
+    var userRequestedTicketCount int;
+    // Ask user for their name
+
+    userName = "Arindam"
+    userRequestedTicketCount = 0;
+
+    fmt.Printf("User %v booked %v tickets.\n",userName, userRequestedTicketCount);
+    fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
 }
