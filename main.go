@@ -25,7 +25,7 @@ func main() {
     var firstName string;
     var lastName string;
     var email string;
-    var userRequestedTicketCount int;
+    var userRequestedTicketCount uint;
 
     fmt.Println("Please enter your first name: ");
     // Ask user for their name
@@ -45,6 +45,9 @@ func main() {
     fmt.Println("Please enter the number of tickets that you would like to book: ");
     fmt.Scan(&userRequestedTicketCount);
 
+    remainingTickets = remainingTickets - userRequestedTicketCount;
+
     fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n",userRequestedTicketCount, firstName, lastName, email);
     // fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
+    fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName);
 }
