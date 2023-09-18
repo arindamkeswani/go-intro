@@ -22,13 +22,29 @@ func main() {
     fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount); 
 
     // Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
-    var userName string;
+    var firstName string;
+    var lastName string;
+    var email string;
     var userRequestedTicketCount int;
+
+    fmt.Println("Please enter your first name: ");
     // Ask user for their name
+    // The following will take the user name as an input save it in userName variable
+    // using the pointer, Scan can assign the value of userName as it now has the memory address
+    // Can be visualised like:
+    // Scan(userName) -> Scan("") -> Passing the value [NO]
+    // Scan(&userName) -> Scan(&userName) -> Scan(0xc00124) -> Passing the reference [YES]
+    fmt.Scan(&firstName);
 
-    userName = "Arindam"
-    userRequestedTicketCount = 0;
+    fmt.Println("Please enter your last name: ");
+    fmt.Scan(&lastName);
 
-    fmt.Printf("User %v booked %v tickets.\n",userName, userRequestedTicketCount);
-    fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
+    fmt.Println("Please enter your email ID: ");
+    fmt.Scan(&email);
+
+    fmt.Println("Please enter the number of tickets that you would like to book: ");
+    fmt.Scan(&userRequestedTicketCount);
+
+    fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n",userRequestedTicketCount, firstName, lastName, email);
+    // fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
 }
