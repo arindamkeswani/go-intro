@@ -21,6 +21,8 @@ func main() {
     fmt.Println("You can book your tickets here!");
     fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount); 
 
+    // var bookings [50]string; //This is an array declaration
+    var bookings []string; // This is a slice
     // Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
     var firstName string;
     var lastName string;
@@ -46,6 +48,16 @@ func main() {
     fmt.Scan(&userRequestedTicketCount);
 
     remainingTickets = remainingTickets - userRequestedTicketCount;
+    // bookings[0] = firstName + " " + lastName; //Syntax for assigning an array index
+    bookings = append(bookings, firstName + " " + lastName); // Syntax for appending an elem in the last place in a slice
+    
+    fmt.Printf("The whole slice: %v\n", bookings);
+    fmt.Printf("The first value: %v\n", bookings[0]);
+    fmt.Printf("Slice type: %T\n", bookings);
+    fmt.Printf("Slice length: %v\n", len(bookings));
+
+    fmt.Printf("These are our bookings: %v\n", bookings)
+
 
     fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n",userRequestedTicketCount, firstName, lastName, email);
     // fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
