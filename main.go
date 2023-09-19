@@ -13,53 +13,56 @@ import (
 
 // 3. This function is the entrypoint of the project
 func main() {
-    conferenceName := "Go Conference"; // the := syntactical sugar applies only to var, not const, and you cannot use it while defining a type
-    const conferenceTicketCount = 50;
-    var remainingTickets uint = 50;
+	conferenceName := "Go Conference" // the := syntactical sugar applies only to var, not const, and you cannot use it while defining a type
+	const conferenceTicketCount = 50
+	var remainingTickets uint = 50
 
-	fmt.Printf("Welcome to %s booking application\n", conferenceName);
-    fmt.Println("You can book your tickets here!");
-    fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount); 
+	fmt.Printf("Welcome to %s booking application\n", conferenceName)
+	fmt.Println("You can book your tickets here!")
+	fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount)
 
-    // var bookings [50]string; //This is an array declaration
-    var bookings []string; // This is a slice
-    // Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
-    var firstName string;
-    var lastName string;
-    var email string;
-    var userRequestedTicketCount uint;
+	for {
 
-    fmt.Println("Please enter your first name: ");
-    // Ask user for their name
-    // The following will take the user name as an input save it in userName variable
-    // using the pointer, Scan can assign the value of userName as it now has the memory address
-    // Can be visualised like:
-    // Scan(userName) -> Scan("") -> Passing the value [NO]
-    // Scan(&userName) -> Scan(&userName) -> Scan(0xc00124) -> Passing the reference [YES]
-    fmt.Scan(&firstName);
+		// var bookings [50]string; //This is an array declaration
+		var bookings []string // This is a slice
+		// Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
+		var firstName string
+		var lastName string
+		var email string
+		var userRequestedTicketCount uint
 
-    fmt.Println("Please enter your last name: ");
-    fmt.Scan(&lastName);
+		fmt.Println("Please enter your first name: ")
+		// Ask user for their name
+		// The following will take the user name as an input save it in userName variable
+		// using the pointer, Scan can assign the value of userName as it now has the memory address
+		// Can be visualised like:
+		// Scan(userName) -> Scan("") -> Passing the value [NO]
+		// Scan(&userName) -> Scan(&userName) -> Scan(0xc00124) -> Passing the reference [YES]
+		fmt.Scan(&firstName)
 
-    fmt.Println("Please enter your email ID: ");
-    fmt.Scan(&email);
+		fmt.Println("Please enter your last name: ")
+		fmt.Scan(&lastName)
 
-    fmt.Println("Please enter the number of tickets that you would like to book: ");
-    fmt.Scan(&userRequestedTicketCount);
+		fmt.Println("Please enter your email ID: ")
+		fmt.Scan(&email)
 
-    remainingTickets = remainingTickets - userRequestedTicketCount;
-    // bookings[0] = firstName + " " + lastName; //Syntax for assigning an array index
-    bookings = append(bookings, firstName + " " + lastName); // Syntax for appending an elem in the last place in a slice
-    
-    fmt.Printf("The whole slice: %v\n", bookings);
-    fmt.Printf("The first value: %v\n", bookings[0]);
-    fmt.Printf("Slice type: %T\n", bookings);
-    fmt.Printf("Slice length: %v\n", len(bookings));
+		fmt.Println("Please enter the number of tickets that you would like to book: ")
+		fmt.Scan(&userRequestedTicketCount)
 
-    fmt.Printf("These are our bookings: %v\n", bookings)
+		remainingTickets = remainingTickets - userRequestedTicketCount
+		// bookings[0] = firstName + " " + lastName; //Syntax for assigning an array index
+		bookings = append(bookings, firstName+" "+lastName) // Syntax for appending an elem in the last place in a slice
 
+		fmt.Printf("The whole slice: %v\n", bookings)
+		fmt.Printf("The first value: %v\n", bookings[0])
+		fmt.Printf("Slice type: %T\n", bookings)
+		fmt.Printf("Slice length: %v\n", len(bookings))
 
-    fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n",userRequestedTicketCount, firstName, lastName, email);
-    // fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
-    fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName);
+		fmt.Printf("These are our bookings: %v\n", bookings)
+
+		fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n", userRequestedTicketCount, firstName, lastName, email)
+		// fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
+		fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+
+	}
 }
