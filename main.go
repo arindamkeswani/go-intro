@@ -23,7 +23,7 @@ func main() {
 	fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount)
     var bookings []string // This is a slice
 
-	for {
+	for remainingTickets > 0 && len(bookings) < 50{
 
 		// var bookings [50]string; //This is an array declaration
 		// Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
@@ -50,6 +50,13 @@ func main() {
 		fmt.Println("Please enter the number of tickets that you would like to book: ")
 		fmt.Scan(&userRequestedTicketCount)
 
+        if userRequestedTicketCount > remainingTickets {
+            fmt.Printf("We only have %v tickets remaining!\n", remainingTickets);
+            continue;
+        } else if userRequestedTicketCount == remainingTickets {
+            fmt.Printf("Those were the last of our tickets, see you at the conference!");
+        }
+
 		remainingTickets = remainingTickets - userRequestedTicketCount
 		// bookings[0] = firstName + " " + lastName; //Syntax for assigning an array index
 		bookings = append(bookings, firstName+" "+lastName) // Syntax for appending an elem in the last place in a slice
@@ -70,9 +77,17 @@ func main() {
 		// fmt.Printf("These are our bookings: %v\n", bookings)
         fmt.Printf("Bookings (first names) are: %v\n",firstNames);
 
-		fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n", userRequestedTicketCount, firstName, lastName, email)
+		// fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n", userRequestedTicketCount, firstName, lastName, email)
 		// fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
 		fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+       
+        var noTicketsRemaining bool = remainingTickets <= 0;
+        if  noTicketsRemaining {
+            //end program
+            fmt.Println("Sold Out! Come back next year!\n");
+            break;
+        }
+        
 
 	}
 }
