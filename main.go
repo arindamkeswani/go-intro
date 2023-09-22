@@ -18,10 +18,9 @@ func main() {
 	const conferenceTicketCount = 50
 	var remainingTickets uint = 50
 
-	fmt.Printf("Welcome to %s booking application\n", conferenceName)
-	fmt.Println("You can book your tickets here!")
-	fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, conferenceTicketCount)
 	var bookings []string // This is a slice
+
+	greetUsers(conferenceName, remainingTickets, conferenceTicketCount)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
 
@@ -50,24 +49,23 @@ func main() {
 		fmt.Println("Please enter the number of tickets that you would like to book: ")
 		fmt.Scan(&userRequestedTicketCount)
 
-		isValidName := len(firstName) >= 2 && len(lastName) >= 2
-		isValidEmail := strings.Contains(email, "@")
-		isValidTicketNo := userRequestedTicketCount > 0 && userRequestedTicketCount <= remainingTickets
-		// isValidCity := city == "Singapore" || city == "London";
-
+        
+        isValidName, isValidEmail, isValidTicketNo := validateUserInput(firstName, lastName, email, userRequestedTicketCount, remainingTickets )
+            
+        
 		if !isValidName || !isValidEmail || !isValidTicketNo {
 			// fmt.Printf("We only have %v tickets remaining!\n", remainingTickets);
-            if !isValidName {
-                fmt.Println("Name is too short");
-            }
-            if !isValidEmail {
-                fmt.Println("Invalid email");
-            }
-            if !isValidTicketNo {
-                fmt.Println("Invalid number of tickets selected");
-            }
+			if !isValidName {
+				fmt.Println("Name is too short")
+			}
+			if !isValidEmail {
+				fmt.Println("Invalid email")
+			}
+			if !isValidTicketNo {
+				fmt.Println("Invalid number of tickets selected")
+			}
 			fmt.Printf("Invalid input, try again.\n")
-			continue;
+			continue
 		} else if userRequestedTicketCount == remainingTickets {
 			fmt.Printf("Those were the last of our tickets, see you at the conference!")
 		} else {
@@ -80,17 +78,9 @@ func main() {
 			// fmt.Printf("The first value: %v\n", bookings[0])
 			// fmt.Printf("Slice type: %T\n", bookings)
 			// fmt.Printf("Slice length: %v\n", len(bookings))
-
-			firstNames := []string{}
-
-			for _, booking := range bookings { //_ is used to define a variable that we wish to ignore
-				var names = strings.Fields(booking) //splits the str passed in the param using a whitespace
-				var firstName = names[0]
-				firstNames = append(firstNames, firstName)
-			}
-
-			// fmt.Printf("These are our bookings: %v\n", bookings)
-			fmt.Printf("Bookings (first names) are: %v\n", firstNames)
+            
+            firstNames := getFirstNames(bookings);
+            fmt.Printf("Bookigs (first names) are: %v\n", firstNames)
 
 			// fmt.Printf("Thank you for booking %v ticket(s), %v %v. You will receive a confirmation mail at %v\n", userRequestedTicketCount, firstName, lastName, email)
 			// fmt.Printf("conferenceTicketCount is of the Type: %T, conferenceName is of the Type: %T",conferenceTicketCount, conferenceName);
@@ -107,16 +97,58 @@ func main() {
 
 	}
 
-    //switch-case sample syntax
-    city := "London"
-    switch city {
-        case "New York":
-            //code for booking New York conference tickets
-        case "Singapore", "Hong Kong":
-            //code for booking Singapore & Hong Kong conference tickets
-        case "Berlin":
-            //code for booking Berlin conference tickets
-        default:
-            fmt.Printf("Invalid city");
-    }
+	//switch-case sample syntax
+	//city := "London"
+	//switch city {
+	//    case "New York":
+	//        //code for booking New York conference tickets
+	//    case "Singapore", "Hong Kong":
+	//        //code for booking Singapore & Hong Kong conference tickets
+	//    case "Berlin":
+	//        //code for booking Berlin conference tickets
+	//    default:
+	//        fmt.Printf("Invalid city");
+	//}
+}
+
+func greetUsers(
+	conferenceName string,
+	remainingTickets uint,
+	totalTickets uint,
+) {
+	fmt.Printf("Welcome to %v\n", conferenceName)
+	fmt.Println("You can book your tickets here!")
+	fmt.Printf("We have %v out of %v tickets remaining\n", remainingTickets, totalTickets)
+}
+
+func getFirstNames(bookings []string) []string {
+
+	firstNames := []string{}
+
+	for _, booking := range bookings { //_ is used to define a variable that we wish to ignore
+		var names = strings.Fields(booking) //splits the str passed in the param using a whitespace
+		var firstName = names[0]
+		firstNames = append(firstNames, firstName)
+	}
+
+	// fmt.Printf("These are our bookings: %v\n", bookings)
+    return firstNames;
+}
+
+func validateUserInput(
+    firstName string, 
+    lastName string,
+    email string,
+    userTickets uint,
+    remainingTickets uint,
+) (bool, bool, bool) {
+
+		isValidName := len(firstName) >= 2 && len(lastName) >= 2
+		isValidEmail := strings.Contains(email, "@")
+		isValidTicketNo := userTickets > 0 && userTickets <= remainingTickets
+
+        // isValidUser := isValidName && isValidEmail && isValidTicketNo;
+
+        return isValidName, isValidEmail, isValidTicketNo;
+
 }
