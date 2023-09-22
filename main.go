@@ -106,4 +106,17 @@ func main() {
 		}
 
 	}
+
+    //switch-case sample syntax
+    city := "London"
+    switch city {
+        case "New York":
+            //code for booking New York conference tickets
+        case "Singapore", "Hong Kong":
+            //code for booking Singapore & Hong Kong conference tickets
+        case "Berlin":
+            //code for booking Berlin conference tickets
+        default:
+            fmt.Printf("Invalid city");
+    }
 }
