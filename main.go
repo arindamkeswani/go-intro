@@ -10,6 +10,7 @@ package main
 import (
 	"fmt"
 	"strings"
+    "booking-app/helper"
 )
 
 var conferenceName = "Go Conference" // the := syntactical sugar applies only to var, not const, and you cannot use it while defining a type
@@ -28,7 +29,7 @@ func main() {
 		// Data Types can either be inferred directly if they are assigned, or they can be explicitly defined
 
 		firstName, lastName, email, userRequestedTicketCount := getUserInput()
-		isValidName, isValidEmail, isValidTicketNo := validateUserInput(firstName, lastName, email, userRequestedTicketCount)
+		isValidName, isValidEmail, isValidTicketNo := helper.ValidateUserInput(firstName, lastName, email, userRequestedTicketCount, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNo {
 			bookTickets(
@@ -95,23 +96,6 @@ func getFirstNames() []string {
 
 	// fmt.Printf("These are our bookings: %v\n", bookings)
 	return firstNames
-}
-
-func validateUserInput(
-	firstName string,
-	lastName string,
-	email string,
-	userTickets uint,
-) (bool, bool, bool) {
-
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketNo := userTickets > 0 && userTickets <= remainingTickets
-
-	// isValidUser := isValidName && isValidEmail && isValidTicketNo;
-
-	return isValidName, isValidEmail, isValidTicketNo
-
 }
 
 func getUserInput() (string, string, string, uint) {
