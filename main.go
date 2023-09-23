@@ -8,15 +8,18 @@ package main
 //4. Packages are simply a collection of source files, we are importing one of those, fmt, here
 //5. You can run the project using the cmd "go run main.go", this compiles and runs the code
 import (
+	"booking-app/helper"
 	"fmt"
-	"strings"
-    "booking-app/helper"
+	"strconv"
+	// "strings"
 )
 
 var conferenceName = "Go Conference" // the := syntactical sugar applies only to var, not const, and you cannot use it while defining a type
 const conferenceTicketCount = 50
 var remainingTickets uint = 50
-var bookings []string // This is a slice
+// var bookings []string // This is a slice
+var bookings = make([]map[string]string, 0) // This is a slice (of maps where each map has a key (string) & value (string)), initial size of the map is 0, but since maps are dynamic, this size can increase
+
 
 // 3. This function is the entrypoint of the project
 func main() {
@@ -36,6 +39,7 @@ func main() {
 				userRequestedTicketCount,
 				firstName,
 				lastName,
+                email,
 			)
 			var noTicketsRemaining bool = remainingTickets <= 0
 			if noTicketsRemaining {
@@ -89,8 +93,9 @@ func getFirstNames() []string {
 	firstNames := []string{}
 
 	for _, booking := range bookings { //_ is used to define a variable that we wish to ignore
-		var names = strings.Fields(booking) //splits the str passed in the param using a whitespace
-		var firstName = names[0]
+		// var names = strings.Fields(booking) //splits the str passed in the param using a whitespace
+		// var firstName = names[0]
+        var firstName = booking["firstName"];
 		firstNames = append(firstNames, firstName)
 	}
 
@@ -130,10 +135,21 @@ func bookTickets(
 	userRequestedTicketCount uint,
 	firstName string,
 	lastName string,
+	email string,
 ) {
-	remainingTickets = remainingTickets - userRequestedTicketCount
+    remainingTickets = remainingTickets - userRequestedTicketCount
+
+    // create a map for storing user data
+    // Cannot mix data types in slices & maps in golang
+    //syntax: map[<Type of key>]<Type of Value>
+    var userData = make(map[string]string);
+    userData["firstName"] = firstName;
+    userData["lastName"] = lastName;
+    userData["email"] = email
+    userData["userRequestedTicketCount"] = strconv.FormatUint( uint64(userRequestedTicketCount), 10 ) //Converts uint val and converts it to decimal number
+
 	// bookings[0] = firstName + " " + lastName; //Syntax for assigning an array index
-	bookings = append(bookings, firstName+" "+lastName) // Syntax for appending an elem in the last place in a slice
+	bookings = append(bookings, userData) // Syntax for appending an elem in the last place in a slice
 
 	// fmt.Printf("The whole slice: %v\n", bookings)
 	// fmt.Printf("The first value: %v\n", bookings[0])
