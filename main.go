@@ -10,7 +10,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
+	// "strconv"
 	// "strings"
 )
 
@@ -18,8 +18,15 @@ var conferenceName = "Go Conference" // the := syntactical sugar applies only to
 const conferenceTicketCount = 50
 var remainingTickets uint = 50
 // var bookings []string // This is a slice
-var bookings = make([]map[string]string, 0) // This is a slice (of maps where each map has a key (string) & value (string)), initial size of the map is 0, but since maps are dynamic, this size can increase
+// var bookings = make([]map[string]string, 0) // This is a slice (of maps where each map has a key (string) & value (string)), initial size of the map is 0, but since maps are dynamic, this size can increase
+var bookings = make([]UserData, 0)
 
+type UserData struct {
+    firstName string
+    lastName string
+    email string
+    noOfTickets uint
+} 
 
 // 3. This function is the entrypoint of the project
 func main() {
@@ -95,7 +102,8 @@ func getFirstNames() []string {
 	for _, booking := range bookings { //_ is used to define a variable that we wish to ignore
 		// var names = strings.Fields(booking) //splits the str passed in the param using a whitespace
 		// var firstName = names[0]
-        var firstName = booking["firstName"];
+        // var firstName = booking["firstName"]; //Accessing the value of a map required index-based retrieval
+        var firstName = booking.firstName; //Accessing the value of a struct required dot-notation
 		firstNames = append(firstNames, firstName)
 	}
 
@@ -142,11 +150,17 @@ func bookTickets(
     // create a map for storing user data
     // Cannot mix data types in slices & maps in golang
     //syntax: map[<Type of key>]<Type of Value>
-    var userData = make(map[string]string);
-    userData["firstName"] = firstName;
-    userData["lastName"] = lastName;
-    userData["email"] = email
-    userData["userRequestedTicketCount"] = strconv.FormatUint( uint64(userRequestedTicketCount), 10 ) //Converts uint val and converts it to decimal number
+    // var userData = make(map[string]string);
+    // userData["firstName"] = firstName;
+    // userData["lastName"] = lastName;
+    // userData["email"] = email
+    // userData["userRequestedTicketCount"] = strconv.FormatUint( uint64(userRequestedTicketCount), 10 ) //Converts uint val and converts it to decimal number
+    var userData = UserData {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        noOfTickets: userRequestedTicketCount,
+    }
 
 	// bookings[0] = firstName + " " + lastName; //Syntax for assigning an array index
 	bookings = append(bookings, userData) // Syntax for appending an elem in the last place in a slice
